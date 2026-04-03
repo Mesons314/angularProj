@@ -1,10 +1,6 @@
-import { Component, inject } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  ValidationErrors,
-  Validators
-} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { passwordMatchValidator } from '../utils/passwordValidators';
 
 @Component({
   selector: 'app-register',
@@ -13,55 +9,35 @@ import {
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  submitted = false;
-  private readonly formBuilder = inject(FormBuilder);
+  registerForm: FormGroup;
+  private readonly strongPasswordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{13,}$/;
 
-  readonly registerForm = this.formBuilder.group(
-    {
-      fullName: ['', [Validators.required, Validators.minLength(3)]],
+  constructor(private fb: FormBuilder) {
+    this.registerForm = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.pattern(this.strongPasswordPattern)]],
       confirmPassword: ['', [Validators.required]]
-    },
-    { validators: this.passwordsMatchValidator }
-  );
-
-  get fullName(): AbstractControl | null {
-    return this.registerForm.get('fullName');
+    }, { validators: passwordMatchValidator });
   }
 
-  get email(): AbstractControl | null {
-    return this.registerForm.get('email');
-  }
-
-  get password(): AbstractControl | null {
-    return this.registerForm.get('password');
-  }
-
-  get confirmPassword(): AbstractControl | null {
-    return this.registerForm.get('confirmPassword');
-  }
-
-  onSubmit(): void {
-    this.submitted = true;
-
-    if (this.registerForm.invalid) {
-      this.registerForm.markAllAsTouched();
-      return;
+  registerSubmit() {
+    if (this.registerForm.valid) {
+      //it will return true when all the validations are verified including angular (length, reuqired, email) and custom (pasword matching)
+      console.log('Success' + this.registerForm.value);
+      //this will not be able to print the object, so write the following code
+      console.log('Success' + JSON.stringify(this.registerForm.value));
+    } else {
+      console.log(this.registerForm.errors);
+      this.printErrors();
     }
-
-    console.log('Registration payload:', this.registerForm.value);
-    this.registerForm.reset();
   }
-
-  private passwordsMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
-
-    if (!password || !confirmPassword) {
-      return null;
+  printErrors() {    
+    for (const controlName in this.registerForm.controls) {
+      const control = this.registerForm.get(controlName);
+      if (control && control.errors) {
+        console.log(`Errors in ${controlName}:`, control.errors);
+      }
     }
-
-    return password === confirmPassword ? null : { passwordsMismatch: true };
   }
 }

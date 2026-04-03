@@ -1,46 +1,59 @@
-.register {
-  max-width: 420px;
-  margin: 24px auto;
-  padding: 20px;
-  border: 1px solid #d9d9d9;
-  border-radius: 8px;
-  background: #fff;
+/* Push 10vh from top */
+.login-container {
+  margin-top: 10vh;
+  display: flex;
+  justify-content: center;
 }
 
-h2 {
-  margin: 0 0 16px;
+/* Card styling */
+.login-box {
+  width: 300px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-form {
-  display: grid;
-  gap: 10px;
-}
-
-label {
+/* Heading */
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 10px;
   font-weight: 600;
 }
 
-input {
+/* Inputs */
+.login-box input {
   padding: 10px;
-  border: 1px solid #c4c4c4;
+  border: 1px solid #ddd;
   border-radius: 6px;
+  font-size: 14px;
+  transition: border 0.3s ease;
 }
 
-button {
-  margin-top: 8px;
-  padding: 10px 14px;
-  border: 0;
+.login-box input:focus {
+  border-color: #3f51b5;
+  outline: none;
+}
+
+/* Button */
+.login-box button {
+  padding: 10px;
+  border: none;
   border-radius: 6px;
+  background: #3f51b5;
+  color: white;
+  font-weight: 500;
   cursor: pointer;
-  background: #1f6feb;
-  color: #fff;
+  transition: background 0.3s ease;
 }
 
-.error {
-  color: #b42318;
+.login-box button:hover {
+  background: #2c3e9f;
 }
 
-.success {
-  margin-top: 12px;
-  color: #027a48;
+.text-danger {
+  color: var(--danger-color);
 }

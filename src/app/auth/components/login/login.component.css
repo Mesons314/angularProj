@@ -1,0 +1,55 @@
+/* Push 10vh from top */
+.login-container {
+  margin-top: 10vh;
+  display: flex;
+  justify-content: center;
+}
+
+/* Card styling */
+.login-box {
+  width: 300px;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Heading */
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* Inputs */
+.login-box input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border 0.3s ease;
+}
+
+.login-box input:focus {
+  border-color: #3f51b5;
+  outline: none;
+}
+
+/* Button */
+.login-box button {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #3f51b5;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-box button:hover {
+  background: #2c3e9f;
+}

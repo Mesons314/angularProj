@@ -1,1 +1,22 @@
-<h1>{{ name }}</h1>
+<style>
+.header {
+  background-color: #333;
+  color: #000000;
+  padding: 10px;
+  text-align: center;
+}
+</style>
+
+<nav class="navbar bg-dark">
+<h1>
+<a href="index.html"><i class="fas fa-code"></i> </a>
+</h1>
+<div class="header">
+{{applicationName}}
+</div>
+<ul>
+<li><a href="/">Home</a></li>
+<li><a href="/auth/register">Register</a></li>
+<li><a href="/auth/login">Login</a></li>
+</ul>
+</nav>
