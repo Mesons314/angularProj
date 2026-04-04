@@ -23,21 +23,24 @@ export class RegisterComponent {
 
   registerSubmit() {
     if (this.registerForm.valid) {
-      //it will return true when all the validations are verified including angular (length, reuqired, email) and custom (pasword matching)
       console.log('Success' + this.registerForm.value);
-      //this will not be able to print the object, so write the following code
       console.log('Success' + JSON.stringify(this.registerForm.value));
     } else {
       console.log(this.registerForm.errors);
       this.printErrors();
     }
   }
-  printErrors() {    
-    for (const controlName in this.registerForm.controls) {
-      const control = this.registerForm.get(controlName);
-      if (control && control.errors) {
-        console.log(`Errors in ${controlName}:`, control.errors);
-      }
+
+  printErrors(): void {
+  const controls = this.registerForm.controls;
+  Object.keys(controls).forEach((name) => {
+    const control = controls[name];
+    if (control.invalid && control.touched && control.errors) {
+      console.log(`${name} has the following errors:`);
+      Object.entries(control.errors).forEach(([key, value]) => {
+        console.log(`- ${key}: ${JSON.stringify(value)}`);
+      });
     }
-  }
+  });
+}
 }
